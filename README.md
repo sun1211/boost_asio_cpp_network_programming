@@ -117,3 +117,4 @@ sudo ./b2 toolset=gcc -j4 install
 - [2. Creating an active socket](chapter_01/recipe_02/README.md)
 - [3. Creating a passive socket](chapter_01/recipe_03/README.md)
 - [4. Resolving a DNS name](chapter_01/recipe_04/README.md)
+- [5. Binding a socket to an endpoint](chapter_01/recipe_05/README.md)
