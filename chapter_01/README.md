@@ -1,4 +1,5 @@
 # Chapter 1: Starting to Write Your Application
 
 - [1. Creating an endpoint](recipe_01/README.md)
-- [2. Creating an active socket](recipe_01/README.md)
+- [2. Creating an active socket](recipe_02/README.md)
+- [3. Creating a passive socket](recipe_03/README.md)
