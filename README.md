@@ -116,3 +116,4 @@ sudo ./b2 toolset=gcc -j4 install
 - [1. Creating an endpoint](chapter_01/recipe_01/README.md)
 - [2. Creating an active socket](chapter_01/recipe_02/README.md)
 - [3. Creating a passive socket](chapter_01/recipe_03/README.md)
+- [4. Resolving a DNS name](chapter_01/recipe_04/README.md)
