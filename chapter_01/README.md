@@ -6,3 +6,4 @@
 - [4. Resolving a DNS name](recipe_04/README.md)
 - [5. Binding a socket to an endpoint](recipe_05/README.md)
 - [6. Connecting a socket](recipe_06/README.md)
+- [7. Accepting connections](recipe_07/README.md)
