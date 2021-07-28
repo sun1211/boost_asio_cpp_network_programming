@@ -114,3 +114,4 @@ sudo ./b2 toolset=gcc -j4 install
 ## [Chapter 1: The Basics](chapter_01/README.md)
 
 - [1. Creating an endpoint](chapter_01/recipe_01/README.md)
+- [2. Creating an active socket](chapter_01/recipe_02/README.md)
