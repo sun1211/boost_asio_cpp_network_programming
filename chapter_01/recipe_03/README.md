@@ -25,7 +25,7 @@ Then in step 3, we create an instance of the asio::ip::tcp::acceptor class, pass
 
 The operating system socket object is allocated in step 4, where we open the acceptor socket object, calling its open() method and passing the protocol object to it as an argument. If the call succeeds, the acceptor socket object is opened and can be used to start listening for incoming connection requests. Otherwise, the ec object of the boost::system::error_code class will contain error information.
 
-## How to build
+# How to build
 ```
 mkdir build
 cd build
@@ -33,7 +33,7 @@ cmake ..
 cmake --build .
 ```
 
-## How to run
+# How to run
 ```
 ./bin/main
 ```

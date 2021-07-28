@@ -89,7 +89,7 @@ All other code would not need to be changed as it is transport protocol independ
 
 The same trivial change in the implementation of step 3 in our second sample is required to switch from a server communicating over TCP to one communicating over UDP.
 
-## How to build
+# How to build
 ```
 mkdir build
 cd build
@@ -97,7 +97,7 @@ cmake ..
 cmake --build .
 ```
 
-## How to run
+# How to run
 ```
 ./bin/main
 ```

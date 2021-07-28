@@ -101,7 +101,7 @@ Note that in step 3, we don't open the socket when we create it. This is because
 All other steps in the code sample should not be difficult to understand, therefore no explanation is provided.
 
 
-## How to build
+# How to build
 ```
 mkdir build
 cd build
@@ -109,7 +109,7 @@ cmake ..
 cmake --build .
 ```
 
-## How to run
+# How to run
 ```
 ./bin/main
 ```

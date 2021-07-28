@@ -39,7 +39,7 @@ If at least one connection request is available in the queue, the one on the top
 
 If the connection establishment process succeeds, the accept() method returns and the active socket is opened and connected to the client application and can be used to send data to and receive data from it.
 
-## How to build
+# How to build
 ```
 mkdir build
 cd build
@@ -47,7 +47,7 @@ cmake ..
 cmake --build .
 ```
 
-## How to run
+# How to run
 ```
 ./bin/main
 ```

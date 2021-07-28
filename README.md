@@ -120,3 +120,7 @@ sudo ./b2 toolset=gcc -j4 install
 - [5. Binding a socket to an endpoint](chapter_01/recipe_05/README.md)
 - [6. Connecting a socket](chapter_01/recipe_06/README.md)
 - [7. Accepting connections](chapter_01/recipe_07/README.md)
+
+## [Chapter 2: I/O Operations](chapter_02/README.md)
+
+- [1. Using fixed length I/O buffers](chapter_02/recipe_01/README.md)

@@ -61,7 +61,7 @@ int main()
 }
 ```
 
-## How to build
+# How to build
 ```
 mkdir build
 cd build
@@ -69,7 +69,7 @@ cmake ..
 cmake --build .
 ```
 
-## How to run
+# How to run
 ```
 ./bin/main
 ```
