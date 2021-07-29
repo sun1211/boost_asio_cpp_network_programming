@@ -32,7 +32,7 @@ void writeToSocketEnhanced(asio::ip::tcp::socket& sock) {
 int main()
 {
     std::string raw_ip_address = "127.0.0.1";
-    unsigned short port_num = 3000;
+    unsigned short port_num = 5000;
 
     try
     {
