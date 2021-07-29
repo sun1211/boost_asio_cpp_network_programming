@@ -124,3 +124,4 @@ sudo ./b2 toolset=gcc -j4 install
 ## [Chapter 2: I/O Operations](chapter_02/README.md)
 
 - [1. Using fixed length I/O buffers](chapter_02/recipe_01/README.md)
+- [2. Using extensible stream-oriented I/O buffers](chapter_02/recipe_02/README.md)

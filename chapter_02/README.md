@@ -1,6 +1,7 @@
 # Chapter 1: Starting to Write Your Application
 
 - [1. Using fixed length I/O buffers](recipe_01/README.md)
+- [2. Using extensible stream-oriented I/O buffers](recipe_02/README.md)
 
 I/O operations are the key operations in the networking infrastructure of any distributed application. They are directly involved in the process of data exchange. Input operations are used to receive data from remote applications, whereas output operations allow sending data to them.
 
