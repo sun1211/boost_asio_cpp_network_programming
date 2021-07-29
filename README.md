@@ -125,3 +125,4 @@ sudo ./b2 toolset=gcc -j4 install
 
 - [1. Using fixed length I/O buffers](chapter_02/recipe_01/README.md)
 - [2. Using extensible stream-oriented I/O buffers](chapter_02/recipe_02/README.md)
+- [3. Writing to a TCP socket synchronously](chapter_02/recipe_03/README.md)
