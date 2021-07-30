@@ -6,6 +6,7 @@
 - [4. Reading from a TCP socket synchronously](recipe_04/README.md)
 - [5. Writing to a TCP socket asynchronously](recipe_05/README.md)
 - [6. Reading from a TCP socket asynchronously](recipe_06/README.md)
+- [7. Canceling asynchronous operations](recipe_07/README.md)
 
 I/O operations are the key operations in the networking infrastructure of any distributed application. They are directly involved in the process of data exchange. Input operations are used to receive data from remote applications, whereas output operations allow sending data to them.
 
