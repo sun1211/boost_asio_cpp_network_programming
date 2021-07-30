@@ -127,3 +127,4 @@ sudo ./b2 toolset=gcc -j4 install
 - [2. Using extensible stream-oriented I/O buffers](chapter_02/recipe_02/README.md)
 - [3. Writing to a TCP socket synchronously](chapter_02/recipe_03/README.md)
 - [4. Reading from a TCP socket synchronously](chapter_02/recipe_04/README.md)
+- [5. Writing to a TCP socket asynchronously](chapter_02/recipe_05/README.md)

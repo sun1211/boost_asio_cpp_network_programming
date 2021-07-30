@@ -4,6 +4,7 @@
 - [2. Using extensible stream-oriented I/O buffers](recipe_02/README.md)
 - [3. Writing to a TCP socket synchronously](recipe_03/README.md)
 - [4. Reading from a TCP socket synchronously](recipe_04/README.md)
+- [5. Writing to a TCP socket asynchronously](recipe_05/README.md)
 
 I/O operations are the key operations in the networking infrastructure of any distributed application. They are directly involved in the process of data exchange. Input operations are used to receive data from remote applications, whereas output operations allow sending data to them.
 
