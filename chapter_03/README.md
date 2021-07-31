@@ -1,6 +1,7 @@
 # Chapter 3: Implementing Client Applications
 
 - [1. Implementing a synchronous TCP client](recipe_01/README.md)
+- [2. Implementing a synchronous UDP client](recipe_02/README.md)
 
 A client is a part of a distributed application that communicates with another part of this application called a server, in order to consume services it provides. The server, on the other hand, is a part of distributed application that passively waits for requests arriving from clients. When a request arrives, the server performs the requested operation and sends a response—the result of the operation—back to the client.
 
