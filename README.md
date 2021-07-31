@@ -142,3 +142,4 @@ sudo ./b2 toolset=gcc -j4 install
 ## [Chapter 4: Implementing Server Applications](chapter_04/README.md)
 
 - [1. Implementing a synchronous iterative TCP server](chapter_04/recipe_01/README.md)
+- [2. Implementing a synchronous parallel TCP server](chapter_04/recipe_02/README.md)

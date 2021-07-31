@@ -1,6 +1,7 @@
 # Chapter 4: Implementing Server Applications
 
 - [1. Implementing a synchronous iterative TCP server](recipe_01/README.md)
+- [2. Implementing a synchronous parallel TCP server](recipe_02/README.md)
 
 A server is a part of a distributed application that provides a service or services that are consumed by other parts of this application—clients. Clients communicate with the server in order to consume services provided by it.
 
