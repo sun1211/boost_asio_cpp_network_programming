@@ -137,3 +137,4 @@ sudo ./b2 toolset=gcc -j4 install
 
 - [1. Implementing a synchronous TCP client](chapter_03/recipe_01/README.md)
 - [2. Implementing a synchronous UDP client](chapter_03/recipe_02/README.md)
+- [2. Implementing an asynchronous TCP client](chapter_03/recipe_03/README.md)
