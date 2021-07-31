@@ -1,4 +1,4 @@
-# Chapter 1: Starting to Write Your Application
+# Chapter 2: I/O Operations
 
 - [1. Using fixed length I/O buffers](recipe_01/README.md)
 - [2. Using extensible stream-oriented I/O buffers](recipe_02/README.md)

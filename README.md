@@ -131,3 +131,8 @@ sudo ./b2 toolset=gcc -j4 install
 - [6. Reading from a TCP socket asynchronously](chapter_02/recipe_06/README.md)
 - [7. Canceling asynchronous operations](chapter_02/recipe_07/README.md)
 - [8. Shutting down and closing a socket](chapter_02/recipe_08/README.md)
+
+
+## [Chapter 3: Implementing Client Applications](chapter_03/README.md)
+
+- [1. Implementing a synchronous TCP client](chapter_03/recipe_01/README.md)
