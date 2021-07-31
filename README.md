@@ -144,3 +144,7 @@ sudo ./b2 toolset=gcc -j4 install
 - [1. Implementing a synchronous iterative TCP server](chapter_04/recipe_01/README.md)
 - [2. Implementing a synchronous parallel TCP server](chapter_04/recipe_02/README.md)
 - [3. Implementing an asynchronous TCP server](chapter_04/recipe_03/README.md)
+
+## [Chapter 5: HTTP and SSL/TLS](chapter_05/README.md)
+
+- [1. Implementing the HTTP client application](chapter_05/recipe_01/README.md)
