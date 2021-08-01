@@ -3,6 +3,7 @@
 - [1. Implementing the HTTP client application](recipe_01/README.md)
 - [2. Implementing the HTTP server application](recipe_02/README.md)
 - [3. Adding SSL/TLS support to client applications](recipe_03/README.md)
+- [4. Adding SSL/TLS support to server applications](recipe_04/README.md)
 
 This chapter covers two major topics. The first one is HTTP protocol implementation. The second is the usage of SSL/TLS protocol. Let's briefly examine each of them.
 

@@ -150,3 +150,4 @@ sudo ./b2 toolset=gcc -j4 install
 - [1. Implementing the HTTP client application](chapter_05/recipe_01/README.md)
 - [2. Implementing the HTTP server application](chapter_05/recipe_02/README.md)
 - [3. Adding SSL/TLS support to client applications](chapter_05/recipe_03/README.md)
+- [4. Adding SSL/TLS support to server applications](chapter_05/recipe_04/README.md)
