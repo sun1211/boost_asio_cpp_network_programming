@@ -1,6 +1,7 @@
 # Chapter 5: HTTP and SSL/TLS
 
 - [1. Implementing the HTTP client application](recipe_01/README.md)
+- [2. Implementing the HTTP server application](recipe_02/README.md)
 
 This chapter covers two major topics. The first one is HTTP protocol implementation. The second is the usage of SSL/TLS protocol. Let's briefly examine each of them.
 
