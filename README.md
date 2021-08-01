@@ -151,3 +151,10 @@ sudo ./b2 toolset=gcc -j4 install
 - [2. Implementing the HTTP server application](chapter_05/recipe_02/README.md)
 - [3. Adding SSL/TLS support to client applications](chapter_05/recipe_03/README.md)
 - [4. Adding SSL/TLS support to server applications](chapter_05/recipe_04/README.md)
+
+## [Chapter 6: Other Topics](chapter_06/README.md)
+
+- [1. Using composite buffers for scatter/gather operations](chapter_06/recipe_01/README.md)
+- [2. Using timers](chapter_06/recipe_02/README.md)
+- [3. Getting and setting socket options](chapter_06/recipe_03/README.md)
+- [4. Performing a stream-based I/O](chapter_06/recipe_04/README.md)
