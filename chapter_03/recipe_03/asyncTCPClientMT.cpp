@@ -27,11 +27,12 @@ using namespace boost;
 
 // Function pointer type that points to the callback
 // function which is called when a request is complete.
-typedef void (*Callback)(unsigned int request_id,
-                         const std::string &response,
-                         const system::error_code &ec);
+// Based on the values of the parameters passed to it, it outputs information about the finished request.
+typedef void (*Callback)(unsigned int request_id,        // unique identifier of the request is assigned to the request when it was initiated.
+                         const std::string &response,    // the response data
+                         const system::error_code &ec);  // error information
 
-// Structure represents a context of a single request.
+// data structure whose purpose is to keep the data related to a particular request while it is being executed
 struct Session
 {
     Session(asio::io_service &ios,
@@ -69,16 +70,20 @@ struct Session
     std::mutex m_cancel_guard;
 };
 
+// class that provides the asynchronous communication functionality.
 class AsyncTCPClient : public boost::noncopyable
 {
 public:
     AsyncTCPClient(unsigned char num_of_threads)
     {
 
+        //instantiates an object of the asio::io_service::work class
+        // passing an instance of the asio::io_service class named m_ios to its constructor
         m_work.reset(new boost::asio::io_service::work(m_ios));
 
         for (unsigned char i = 1; i <= num_of_threads; i++)
         {
+            //spawns a thread that calls the run() method of the m_ios object.
             std::unique_ptr<std::thread> th(
                 new std::thread([this]()
                                 { m_ios.run(); }));
@@ -86,18 +91,19 @@ public:
             m_threads.push_back(std::move(th));
         }
     }
-
+    // initiates a request to the server
     void emulateLongComputationOp(
-        unsigned int duration_sec,
-        const std::string &raw_ip_address,
-        unsigned short port_num,
-        Callback callback,
-        unsigned int request_id)
+        unsigned int duration_sec,          //represents the request parameter according to the application layer protocol
+        const std::string &raw_ip_address,  //specify the server to which the request should be sent.
+        unsigned short port_num,            //specify the server to which the request should be sent.
+        Callback callback,                  //callback function, which will be called when the request is complete.
+        unsigned int request_id)    // unique identifier of the request
     {
 
-        // Preparing the request string.
+        // preparing a request string and allocating an instance of the Session structure
+        // that keeps the data associated with the request including a socket object
+        // that is used to communicate with the server.
         std::string request = "EMULATE_LONG_CALC_OP " + std::to_string(duration_sec) + "\n";
-
         std::shared_ptr<Session> session =
             std::shared_ptr<Session>(new Session(m_ios,
                                                  raw_ip_address,
@@ -106,6 +112,7 @@ public:
                                                  request_id,
                                                  callback));
 
+        //opened socket and the pointer to the Session object is added to the m_active_sessions map
         session->m_sock.open(session->m_ep.protocol());
 
         // Add new session to the list of active sessions so
@@ -114,35 +121,44 @@ public:
         // Because active sessions list can be accessed from
         // multiple threads, we guard it with a mutex to avoid
         // data corruption.
-        std::unique_lock<std::mutex>
-            lock(m_active_sessions_guard);
+        std::unique_lock<std::mutex> lock(m_active_sessions_guard);
         m_active_sessions[request_id] = session;
         lock.unlock();
 
+        //connect the socket to the server
         session->m_sock.async_connect(session->m_ep,
                                       [this, session](const system::error_code &ec)
                                       {
+                                          //checking the error code passed to it as the ec argument
                                           if (ec.value() != 0)
                                           {
+                                              //we store the ec value in the corresponding Session object,
                                               session->m_ec = ec;
+                                              //call the class's onRequestComplete() private method passing the Session object to it as an argument
                                               onRequestComplete(session);
+                                              //then return.
                                               return;
                                           }
 
-                                          std::unique_lock<std::mutex>
-                                              cancel_lock(session->m_cancel_guard);
+                                          // lock the m_cancel_guard mutex (the member of the request descriptor object)
+                                          std::unique_lock<std::mutex> cancel_lock(session->m_cancel_guard);
 
+                                          //check whether the request has not been canceled yet. 
                                           if (session->m_was_cancelled)
                                           {
                                               onRequestComplete(session);
                                               return;
                                           }
 
+                                          //If we see that the request has not been canceled
+                                          //we initiate the next asynchronous operation calling the Boost.Asio free function async_write()
+                                          // to send the request data to the server.
                                           asio::async_write(session->m_sock,
                                                             asio::buffer(session->m_request),
                                                             [this, session](const boost::system::error_code &ec,
                                                                             std::size_t bytes_transferred)
                                                             {
+                                                                // check the error code
                                                                 if (ec.value() != 0)
                                                                 {
                                                                     session->m_ec = ec;
@@ -150,21 +166,24 @@ public:
                                                                     return;
                                                                 }
 
-                                                                std::unique_lock<std::mutex>
-                                                                    cancel_lock(session->m_cancel_guard);
+                                                                //// lock the m_cancel_guard mutex (the member of the request descriptor object)
+                                                                std::unique_lock<std::mutex> cancel_lock(session->m_cancel_guard);
 
+                                                                // check whether or not the request has been canceled. 
                                                                 if (session->m_was_cancelled)
                                                                 {
                                                                     onRequestComplete(session);
                                                                     return;
                                                                 }
 
+                                                                // initiate the next asynchronous operation—async_read_until()—in order to receive a response from the server
                                                                 asio::async_read_until(session->m_sock,
                                                                                        session->m_response_buf,
                                                                                        '\n',
                                                                                        [this, session](const boost::system::error_code &ec,
                                                                                                        std::size_t bytes_transferred)
                                                                                        {
+                                                                                           //checks the error code
                                                                                            if (ec.value() != 0)
                                                                                            {
                                                                                                session->m_ec = ec;
@@ -175,18 +194,21 @@ public:
                                                                                                std::getline(strm, session->m_response);
                                                                                            }
 
+                                                                                           // the AsyncTCPClient class's private method onRequestComplete() is called
+                                                                                           // and the Session object is passed to it as an argument.
                                                                                            onRequestComplete(session);
                                                                                        });
                                                             });
                                       });
     };
 
-    // Cancels the request.
-    void cancelRequest(unsigned int request_id)
+    // cancels the previously initiated request designated by the request_id argument
+    void cancelRequest(unsigned int request_id) //accepts an identifier of the request to be canceled as an argument.
     {
         std::unique_lock<std::mutex>
             lock(m_active_sessions_guard);
 
+        //looking for the Session object corresponding to the specified request in the m_active_sessions map.
         auto it = m_active_sessions.find(request_id);
         if (it != m_active_sessions.end())
         {
@@ -198,6 +220,7 @@ public:
         }
     }
 
+    // blocks the calling thread until all the currently running requests complete and deinitializes the client.
     void close()
     {
         // Destroy work object. This allows the I/O threads to
@@ -213,6 +236,7 @@ public:
     }
 
 private:
+    // method is called whenever the request completes with any result.
     void onRequestComplete(std::shared_ptr<Session> session)
     {
         // Shutting down the connection. This method may
@@ -220,9 +244,7 @@ private:
         // about the error code if this function fails.
         boost::system::error_code ignored_ec;
 
-        session->m_sock.shutdown(
-            asio::ip::tcp::socket::shutdown_both,
-            ignored_ec);
+        session->m_sock.shutdown( asio::ip::tcp::socket::shutdown_both, ignored_ec);
 
         // Remove session form the map of active sessions.
         std::unique_lock<std::mutex>
@@ -254,6 +276,8 @@ private:
     std::list<std::unique_ptr<std::thread>> m_threads;
 };
 
+// a function that will serve as a callback, which we'll pass to the AsyncTCPClient::emulateLongComputationOp() method
+// It outputs the result of the request execution and the response message to the standard output stream if the request is completed successfully
 void handler(unsigned int request_id,
              const std::string &response,
              const system::error_code &ec)
@@ -287,25 +311,12 @@ int main()
     {
         AsyncTCPClient client(4);
 
-        // Here we emulate the user�s behavior.
+        // Here we emulate the user's behavior.
 
+        // creates an instance of the AsyncTCPClient class and then calls its emulateLongComputationOp() method to initiate three asynchronous requests
         // User initiates a request with id 1.
-        client.emulateLongComputationOp(10, "127.0.0.1", 5000,
-                                        handler, 1);
-        // Then does nothing for 5 seconds.
-        std::this_thread::sleep_for(std::chrono::seconds(5));
-        // Then initiates another request with id 2.
-        client.emulateLongComputationOp(11, "127.0.0.1", 5001,
-                                        handler, 2);
-        // Then decides to cancel the request with id 1.
-        client.cancelRequest(1);
-        // Does nothing for another 6 seconds.
-        std::this_thread::sleep_for(std::chrono::seconds(6));
-        // Initiates one more request assigning ID 3 to it.
-        client.emulateLongComputationOp(12, "127.0.0.1", 5002,
-                                        handler, 3);
-        // Does nothing for another 15 seconds.
-        std::this_thread::sleep_for(std::chrono::seconds(15));
+        client.emulateLongComputationOp(10, "127.0.0.1", 3333, handler, 1);
+
         // Decides to exit the application.
         client.close();
     }
